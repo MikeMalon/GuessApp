@@ -8,19 +8,20 @@ import Colors from "./constants/colors";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
   const [newGame, setNewGame] = useState(true);
 
   function handleUserNumber(number) {
     console.log("Number received from StartGameScreen:", number); // Verifica qué llega
     setUserNumber(number);
+    setGameOver(false);
   }
 
   let screen = <StartGameScreen handlerValue={handleUserNumber} />;
   if (userNumber) {
     screen = <GameScreen guessNumber={userNumber} gameOver={setGameOver} />;
   }
-  if (gameOver) {
+  if (gameOver && userNumber) {
     screen = <GameOverScreen number={userNumber} />;
   }
 
