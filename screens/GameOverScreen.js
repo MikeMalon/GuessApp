@@ -5,13 +5,7 @@ function GameOverScreen({ number, onNewGame }) {
   return (
     <View style={styles.GameOverContainer}>
       <Text style={styles.gameOverText}>Your number is {number}!</Text>
-      <PrimaryButton
-        onPress={() => {
-          onNewGame;
-        }}
-      >
-        NEW GAME
-      </PrimaryButton>
+      <PrimaryButton onPress={() => onNewGame()}>NEW GAME</PrimaryButton>
     </View>
   );
 }
