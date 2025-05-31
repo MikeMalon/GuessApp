@@ -2,6 +2,9 @@ import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { useState } from "react";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Colors from "../constants/colors";
+import Title from "../components/ui/Title";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstruccionText";
 
 function StartGameScreen(props) {
   const [enteredValue, setEnteredValue] = useState("");
@@ -31,41 +34,44 @@ function StartGameScreen(props) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        onChangeText={textInputChange}
-        value={enteredValue}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
+    <View style={styles.rootContainer}>
+      <Title>Guess my number</Title>
+      <Card>
+        <InstructionText>Enter a number</InstructionText>
+        <TextInput
+          style={styles.input}
+          onChangeText={textInputChange}
+          value={enteredValue}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={handleReset}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={handleConfirm}>Confirm</PrimaryButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    alignItems: "center",
-    padding: 16,
-    marginTop: 100,
+  title: {
     marginHorizontal: 24,
-    borderRadius: 8,
-    backgroundColor: Colors.primary800,
-    elevation: 8,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+  },
+  instructionText: {
+    fontSize: 24,
+    color: Colors.accent500,
+  },
+  rootContainer: {
+    flex: 1,
+    marginTop: 100,
+    alignItems: "center",
   },
   input: {
     height: 50,

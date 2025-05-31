@@ -5,10 +5,21 @@ import { useState } from "react";
 import GameScreen from "./screens/GameScreen";
 import { ImageBackground, StyleSheet, SafeAreaView } from "react-native";
 import Colors from "./constants/colors";
+import { useFonts } from "expo-font";
+import { AppLoading } from "expo-app-loading";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [gameOver, setGameOver] = useState(true);
+
+  const [loadedFonts] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  if (!loadedFonts) {
+    return <AppLoading />;
+  }
 
   function handleUserNumber(number) {
     console.log("Number received from StartGameScreen:", number); // Verifica qué llega
@@ -23,7 +34,7 @@ export default function App() {
 
   console.log("userNumber:", userNumber);
   let screen = <StartGameScreen handlerValue={handleUserNumber} />;
-  if (userNumber && !gameOver) {
+  if (userNumber) {
     screen = <GameScreen guessNumber={userNumber} gameOver={setGameOver} />;
   }
   if (gameOver && userNumber) {
